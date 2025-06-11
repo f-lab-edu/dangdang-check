@@ -8,20 +8,20 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name = "stores")
+@Table(name = "business_infos")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Store extends BaseEntity {
+public class BusinessInfo extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String email;
-    private String mainPhone;
+    private String businessName;
+    private String businessRegistrationNumber;
+    private String businessType;
+    private String representativeName;
     @Embedded
     private Address address;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "business_info_id")
-    private BusinessInfo businessInfo;
+    @Enumerated(EnumType.STRING)
+    private RegistrationStatus registrationStatus;
+    private String rejectedReason;
 }
