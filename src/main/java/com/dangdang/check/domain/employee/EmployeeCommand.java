@@ -1,5 +1,6 @@
 package com.dangdang.check.domain.employee;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -16,6 +17,7 @@ public class EmployeeCommand {
         private final String password;
         private final String mobilePhone;
 
+        @Builder
         public RegisterEmployeeRequest(String name, String nickname, String email, String loginId, String password, String mobilePhone) {
             this.name = name;
             this.nickname = nickname;
