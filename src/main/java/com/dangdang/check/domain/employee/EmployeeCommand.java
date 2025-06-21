@@ -24,5 +24,17 @@ public class EmployeeCommand {
             this.password = password;
             this.mobilePhone = mobilePhone;
         }
+
+        public Employee toEntity(String encodedPassword) {
+            return Employee.builder()
+                    .name(name)
+                    .nickname(nickname)
+                    .email(email)
+                    .loginId(loginId)
+                    .password(encodedPassword)
+                    .mobilePhone(mobilePhone)
+                    .build();
+        }
+
     }
 }
