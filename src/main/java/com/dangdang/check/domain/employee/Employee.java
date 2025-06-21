@@ -8,6 +8,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Entity
 @Table(name = "employees")
@@ -25,6 +27,8 @@ public class Employee extends BaseEntity {
     private String mobilePhone;
     @Enumerated(EnumType.STRING)
     private Role role;
+    private boolean isDeleted = false;
+    private LocalDateTime deletedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
