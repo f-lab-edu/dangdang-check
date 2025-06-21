@@ -5,8 +5,13 @@ import com.dangdang.check.domain.BaseEntity;
 import com.dangdang.check.domain.store.Store;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
+
+import java.security.InvalidParameterException;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -24,9 +29,29 @@ public class Employee extends BaseEntity {
     private String password;
     private String mobilePhone;
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.DEFAULT;
+    private boolean isDeleted = false;
+    private LocalDateTime deletedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
+
+    @Builder
+    public Employee(String name, String nickname, String email, String loginId, String password, String mobilePhone) {
+        if (!StringUtils.hasText(name)) throw new InvalidParameterException();
+        if (!StringUtils.hasText(nickname)) throw new InvalidParameterException();
+        if (!StringUtils.hasText(email)) throw new InvalidParameterException();
+        if (!StringUtils.hasText(loginId)) throw new InvalidParameterException();
+        if (!StringUtils.hasText(password)) throw new InvalidParameterException();
+        if (!StringUtils.hasText(mobilePhone)) throw new InvalidParameterException();
+
+
+        this.name = name;
+        this.nickname = nickname;
+        this.email = email;
+        this.loginId = loginId;
+        this.password = password;
+        this.mobilePhone = mobilePhone;
+    }
 }
