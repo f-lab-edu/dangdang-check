@@ -3,12 +3,12 @@ package com.dangdang.check.domain.employee;
 
 import com.dangdang.check.domain.BaseEntity;
 import com.dangdang.check.domain.store.StoreEntity;
+import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.util.StringUtils;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
@@ -43,7 +43,7 @@ public class EmployeeEntity extends BaseEntity {
 
     @Builder
     public EmployeeEntity(String name, String nickname, String email, String loginId, String password, String mobilePhone) {
-        if (!validateRequiredParams(name, nickname, email, loginId, password, mobilePhone)) {
+        if (isNotValidParams(name, nickname, email, loginId, password, mobilePhone)) {
             throw new InvalidParameterException();
         }
 
@@ -55,14 +55,12 @@ public class EmployeeEntity extends BaseEntity {
         this.mobilePhone = mobilePhone;
     }
 
-    private boolean validateRequiredParams(String name, String nickname, String email, String loginId, String password, String mobilePhone) {
-        return StringUtils.hasText(name)
-                && StringUtils.hasText(nickname)
-                && StringUtils.hasText(email)
-                && StringUtils.hasText(loginId)
-                && StringUtils.hasText(password)
-                && StringUtils.hasText(mobilePhone);
+    private boolean isNotValidParams(String name, String nickname, String email, String loginId, String password, String mobilePhone) {
+        return StringUtils.isBlank(name)
+                || StringUtils.isBlank(nickname)
+                || StringUtils.isBlank(email)
+                || StringUtils.isBlank(loginId)
+                || StringUtils.isBlank(password)
+                || StringUtils.isBlank(mobilePhone);
     }
-
-
 }
