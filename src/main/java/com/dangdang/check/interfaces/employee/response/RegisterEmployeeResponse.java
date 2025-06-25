@@ -1,6 +1,6 @@
 package com.dangdang.check.interfaces.employee.response;
 
-import com.dangdang.check.domain.employee.EmployeeInfo;
+import com.dangdang.check.domain.employee.response.EmployeeInfo;
 import com.dangdang.check.domain.employee.Role;
 import lombok.Getter;
 import lombok.ToString;

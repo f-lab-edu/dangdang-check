@@ -1,4 +1,4 @@
-package com.dangdang.check.domain.employee;
+package com.dangdang.check.domain.employee.request;
 
 import lombok.Builder;
 import lombok.Getter;

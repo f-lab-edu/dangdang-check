@@ -2,9 +2,9 @@ package com.dangdang.check.interfaces.employee;
 
 
 import com.dangdang.check.common.response.CommonResponse;
-import com.dangdang.check.domain.employee.EmployeeInfo;
+import com.dangdang.check.domain.employee.response.EmployeeInfo;
 import com.dangdang.check.domain.employee.EmployeeService;
-import com.dangdang.check.domain.employee.RegisterEmployee;
+import com.dangdang.check.domain.employee.request.RegisterEmployee;
 import com.dangdang.check.interfaces.employee.request.RegisterEmployeeRequest;
 import com.dangdang.check.interfaces.employee.response.RegisterEmployeeResponse;
 import jakarta.validation.Valid;

@@ -1,5 +1,6 @@
-package com.dangdang.check.domain.employee;
+package com.dangdang.check.domain.employee.response;
 
+import com.dangdang.check.domain.employee.Role;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,6 +1,6 @@
 package com.dangdang.check.interfaces.employee.request;
 
-import com.dangdang.check.domain.employee.RegisterEmployee;
+import com.dangdang.check.domain.employee.request.RegisterEmployee;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

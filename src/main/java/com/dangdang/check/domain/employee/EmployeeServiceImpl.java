@@ -1,6 +1,9 @@
 package com.dangdang.check.domain.employee;
 
 import com.dangdang.check.core.employee.EmployeeCommandService;
+import com.dangdang.check.domain.employee.request.RegisterEmployee;
+import com.dangdang.check.domain.employee.request.UpdateProfile;
+import com.dangdang.check.domain.employee.response.EmployeeInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,5 +22,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         String encodedPassword = passwordEncoder.encode(command.getPassword());
         EmployeeEntity initEmployee = EmployeeEntityFactory.from(command, encodedPassword);
         return EmployeeEntityFactory.to(employeeCommandService.save(initEmployee));
+    }
+
+    @Override
+    public EmployeeInfo updateProfile(UpdateProfile command) {
+        return null;
     }
 }

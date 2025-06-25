@@ -1,5 +1,8 @@
 package com.dangdang.check.domain.employee;
 
+import com.dangdang.check.domain.employee.request.RegisterEmployee;
+import com.dangdang.check.domain.employee.response.EmployeeInfo;
+
 public class EmployeeEntityFactory {
 
     public static EmployeeEntity from(RegisterEmployee command, String encodedPassword) {
