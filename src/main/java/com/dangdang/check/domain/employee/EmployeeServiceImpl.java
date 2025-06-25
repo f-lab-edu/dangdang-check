@@ -18,6 +18,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeInfo registerEmployee(RegisterEmployee command) {
         String encodedPassword = passwordEncoder.encode(command.getPassword());
         EmployeeEntity initEmployee = EmployeeEntityFactory.from(command, encodedPassword);
-        return new EmployeeInfo(employeeCommandService.save(initEmployee));
+        return EmployeeEntityFactory.to(employeeCommandService.save(initEmployee));
     }
 }

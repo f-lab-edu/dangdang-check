@@ -13,7 +13,6 @@ public class RegisterEmployeeResponse {
     private final String nickname;
     private final String email;
     private final String loginId;
-    private final String password;
     private final Role role;
 
     public RegisterEmployeeResponse(EmployeeInfo employeeInfo) {
@@ -22,7 +21,6 @@ public class RegisterEmployeeResponse {
         this.nickname = employeeInfo.getNickname();
         this.email = employeeInfo.getEmail();
         this.loginId = employeeInfo.getLoginId();
-        this.password = employeeInfo.getPassword();
         this.role = employeeInfo.getRole();
     }
 }

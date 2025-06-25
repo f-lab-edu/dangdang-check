@@ -12,4 +12,15 @@ public class EmployeeEntityFactory {
                 .mobilePhone(command.getMobilePhone())
                 .build();
     }
+
+    public static EmployeeInfo to(EmployeeEntity employeeEntity) {
+        return EmployeeInfo.builder()
+                .id(employeeEntity.getId())
+                .name(employeeEntity.getName())
+                .nickname(employeeEntity.getNickname())
+                .email(employeeEntity.getEmail())
+                .loginId(employeeEntity.getLoginId())
+                .role(employeeEntity.getRole())
+                .build();
+    }
 }
