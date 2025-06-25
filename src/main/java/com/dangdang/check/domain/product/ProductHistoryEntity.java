@@ -1,7 +1,6 @@
-package com.dangdang.check.domain.prepaidticket;
+package com.dangdang.check.domain.product;
 
 import com.dangdang.check.domain.BaseEntity;
-import com.dangdang.check.domain.customer.Customer;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,16 +10,17 @@ import java.math.BigDecimal;
 
 @Getter
 @Entity
-@Table(name = "prepaid_tickets")
+@Table(name = "product_histories")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PrepaidTicket extends BaseEntity {
+public class ProductHistoryEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private BigDecimal balance;
+    private String name;
+    private BigDecimal price;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private ProductEntity product;
 }

@@ -1,8 +1,8 @@
 package com.dangdang.check.domain.grooming;
 
 import com.dangdang.check.domain.BaseEntity;
-import com.dangdang.check.domain.employee.Employee;
-import com.dangdang.check.domain.pet.Pet;
+import com.dangdang.check.domain.employee.EmployeeEntity;
+import com.dangdang.check.domain.pet.PetEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "grooming_records")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GroomingRecord extends BaseEntity {
+public class GroomingRecordEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +27,14 @@ public class GroomingRecord extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pet_id", nullable = false)
-    Pet pet;
+    PetEntity pet;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)
-    Employee employee; // 미용 담당 직원
+    EmployeeEntity employee; // 미용 담당 직원
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "grooming_reservation_id")
-    private GroomingReservation groomingReservation; // 미용 예약 정보
+    private GroomingReservationEntity groomingReservation; // 미용 예약 정보
 
 }

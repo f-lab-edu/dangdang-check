@@ -1,7 +1,6 @@
-package com.dangdang.check.domain.customer;
+package com.dangdang.check.domain.store;
 
 import com.dangdang.check.domain.BaseEntity;
-import com.dangdang.check.domain.store.Store;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,18 +8,20 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name = "customers")
+@Table(name = "stores")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Customer extends BaseEntity {
+public class StoreEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Lob
-    private String specialNotes;
+    private String email;
+    private String mainPhone;
+    @Embedded
+    private Address address;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", nullable = false)
-    private Store store;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "business_info_id")
+    private BusinessInfoEntity businessInfo;
 }

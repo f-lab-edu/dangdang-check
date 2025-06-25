@@ -1,5 +1,6 @@
 package com.dangdang.check.domain.employee;
 
+import com.dangdang.check.core.employee.EmployeeCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,17 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeStore employeeStore;
-    private final EmployeeValidator employeeValidator;
+    private final EmployeeCommandService employeeCommandService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
-    public EmployeeInfo registerEmployee(EmployeeCommand.RegisterEmployeeRequest request) {
-        employeeValidator.checkRegisterEmployee(request);
-        String encodedPassword = passwordEncoder.encode(request.getPassword());
-        Employee initEmployee = request.toEntity(encodedPassword);
-        Employee employee = employeeStore.storeEmployee(initEmployee);
-        return new EmployeeInfo(employee);
+    public EmployeeInfo registerEmployee(RegisterEmployee command) {
+        String encodedPassword = passwordEncoder.encode(command.getPassword());
+        EmployeeEntity initEmployee = EmployeeEntityFactory.from(command, encodedPassword);
+        return new EmployeeInfo(employeeCommandService.save(initEmployee));
     }
 }

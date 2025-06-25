@@ -2,7 +2,7 @@ package com.dangdang.check.domain.employee;
 
 
 import com.dangdang.check.domain.BaseEntity;
-import com.dangdang.check.domain.store.Store;
+import com.dangdang.check.domain.store.StoreEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -17,16 +17,20 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "employees")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Employee extends BaseEntity {
+public class EmployeeEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String nickname;
+    @Column(unique = true)
     private String email;
+    @Column(unique = true)
     private String loginId;
     private String password;
+    @Column(unique = true)
     private String mobilePhone;
     @Enumerated(EnumType.STRING)
     private Role role = Role.DEFAULT;
@@ -35,17 +39,13 @@ public class Employee extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
-    private Store store;
+    private StoreEntity store;
 
     @Builder
-    public Employee(String name, String nickname, String email, String loginId, String password, String mobilePhone) {
-        if (!StringUtils.hasText(name)) throw new InvalidParameterException();
-        if (!StringUtils.hasText(nickname)) throw new InvalidParameterException();
-        if (!StringUtils.hasText(email)) throw new InvalidParameterException();
-        if (!StringUtils.hasText(loginId)) throw new InvalidParameterException();
-        if (!StringUtils.hasText(password)) throw new InvalidParameterException();
-        if (!StringUtils.hasText(mobilePhone)) throw new InvalidParameterException();
-
+    public EmployeeEntity(String name, String nickname, String email, String loginId, String password, String mobilePhone) {
+        if (!validateRequiredParams(name, nickname, email, loginId, password, mobilePhone)) {
+            throw new InvalidParameterException();
+        }
 
         this.name = name;
         this.nickname = nickname;
@@ -54,4 +54,15 @@ public class Employee extends BaseEntity {
         this.password = password;
         this.mobilePhone = mobilePhone;
     }
+
+    private boolean validateRequiredParams(String name, String nickname, String email, String loginId, String password, String mobilePhone) {
+        return StringUtils.hasText(name)
+                && StringUtils.hasText(nickname)
+                && StringUtils.hasText(email)
+                && StringUtils.hasText(loginId)
+                && StringUtils.hasText(password)
+                && StringUtils.hasText(mobilePhone);
+    }
+
+
 }

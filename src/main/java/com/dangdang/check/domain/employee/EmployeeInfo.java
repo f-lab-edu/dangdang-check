@@ -13,7 +13,7 @@ public class EmployeeInfo {
     private final String password;
     private final Role role;
 
-    public EmployeeInfo(Employee employee) {
+    public EmployeeInfo(EmployeeEntity employee) {
         this.id = employee.getId();
         this.name = employee.getName();
         this.nickname = employee.getNickname();

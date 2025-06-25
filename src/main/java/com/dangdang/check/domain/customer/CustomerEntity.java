@@ -1,26 +1,26 @@
-package com.dangdang.check.domain.product;
+package com.dangdang.check.domain.customer;
 
 import com.dangdang.check.domain.BaseEntity;
+import com.dangdang.check.domain.store.StoreEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Getter
 @Entity
-@Table(name = "product_histories")
+@Table(name = "customers")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ProductHistory extends BaseEntity {
+public class CustomerEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private BigDecimal price;
+    @Lob
+    private String specialNotes;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @JoinColumn(name = "store_id", nullable = false)
+    private StoreEntity store;
 }

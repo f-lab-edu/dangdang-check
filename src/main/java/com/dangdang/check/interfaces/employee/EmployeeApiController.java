@@ -2,9 +2,11 @@ package com.dangdang.check.interfaces.employee;
 
 
 import com.dangdang.check.common.response.CommonResponse;
-import com.dangdang.check.domain.employee.EmployeeCommand;
 import com.dangdang.check.domain.employee.EmployeeInfo;
 import com.dangdang.check.domain.employee.EmployeeService;
+import com.dangdang.check.domain.employee.RegisterEmployee;
+import com.dangdang.check.interfaces.employee.request.RegisterEmployeeRequest;
+import com.dangdang.check.interfaces.employee.response.RegisterEmployeeResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +20,10 @@ public class EmployeeApiController {
     private final EmployeeService employeeService;
 
     @PostMapping("/api/employees")
-    public CommonResponse<EmployeeDto.RegisterEmployeeResponse> registerEmployee(@RequestBody @Valid EmployeeDto.RegisterEmployeeRequest request) {
-        EmployeeCommand.RegisterEmployeeRequest command = request.toCommand();
+    public CommonResponse<RegisterEmployeeResponse> registerEmployee(@RequestBody @Valid RegisterEmployeeRequest request) {
+        RegisterEmployee command = request.toCommand();
         EmployeeInfo employeeInfo = employeeService.registerEmployee(command);
-        EmployeeDto.RegisterEmployeeResponse response = new EmployeeDto.RegisterEmployeeResponse(employeeInfo);
+        RegisterEmployeeResponse response = new RegisterEmployeeResponse(employeeInfo);
         return CommonResponse.success(response);
     }
 }

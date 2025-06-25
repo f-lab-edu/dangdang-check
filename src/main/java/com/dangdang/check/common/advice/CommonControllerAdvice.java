@@ -1,7 +1,10 @@
-package com.dangdang.check.common.response;
+package com.dangdang.check.common.advice;
 
+import com.dangdang.check.common.response.CommonResponse;
+import com.dangdang.check.common.response.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,6 +28,19 @@ public class CommonControllerAdvice {
         }
         log.error("IllegalArgumentException: {}", ex.getMessage());
         return CommonResponse.fail(ex.getMessage(), ErrorCode.COMMON_ILLEGAL_STATUS.name());
+    }
+
+    /**
+     * Handles DataIntegrityViolationException.
+     */
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public CommonResponse<?> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        if (ex.getMessage() == null) {
+            return CommonResponse.fail(ErrorCode.COMMON_DUPLICATE_RESOURCE);
+        }
+        log.error("DataIntegrityViolationException: {}", ex.getMessage());
+        return CommonResponse.fail("중복된 값이 존재합니다.", ErrorCode.COMMON_DUPLICATE_RESOURCE.name());
     }
 
     /**

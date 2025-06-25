@@ -1,7 +1,8 @@
 package com.dangdang.check.domain.grooming;
 
 import com.dangdang.check.domain.BaseEntity;
-import com.dangdang.check.domain.customer.Customer;
+
+import com.dangdang.check.domain.customer.CustomerEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "grooming_reservations")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GroomingReservation extends BaseEntity {
+public class GroomingReservationEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +29,6 @@ public class GroomingReservation extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    private CustomerEntity customer;
 
 }

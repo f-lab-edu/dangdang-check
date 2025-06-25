@@ -1,4 +1,4 @@
-package com.dangdang.check.domain.grooming;
+package com.dangdang.check.domain.pet;
 
 import com.dangdang.check.domain.BaseEntity;
 import jakarta.persistence.*;
@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name = "grooming_record_images")
+@Table(name = "grooming_request_images")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GroomingRecordImage extends BaseEntity {
+public class GroomingRequestImageEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,6 @@ public class GroomingRecordImage extends BaseEntity {
     private String url; // 이미지 URL
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "grooming_record_id", nullable = false)
-    private GroomingRecord groomingRecord;
+    @JoinColumn(name = "pet_id", nullable = false)
+    private PetEntity pet;
 }

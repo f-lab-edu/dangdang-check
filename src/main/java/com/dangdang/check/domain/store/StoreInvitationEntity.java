@@ -1,6 +1,6 @@
 package com.dangdang.check.domain.store;
 
-import com.dangdang.check.domain.employee.Employee;
+import com.dangdang.check.domain.employee.EmployeeEntity;
 import com.dangdang.check.domain.employee.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "store_invitations")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class StoreInvitation {
+public class StoreInvitationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +28,9 @@ public class StoreInvitation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
-    private Store store;
+    private StoreEntity store;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inviter_id", nullable = false)
-    private Employee employee;
+    private EmployeeEntity employee;
 }

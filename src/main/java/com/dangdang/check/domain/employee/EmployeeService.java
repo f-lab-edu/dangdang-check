@@ -2,5 +2,5 @@ package com.dangdang.check.domain.employee;
 
 public interface EmployeeService {
 
-    EmployeeInfo registerEmployee(EmployeeCommand.RegisterEmployeeRequest request);
+    EmployeeInfo registerEmployee(RegisterEmployee command);
 }

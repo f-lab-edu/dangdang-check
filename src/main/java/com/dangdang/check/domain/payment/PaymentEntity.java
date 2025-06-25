@@ -1,6 +1,7 @@
 package com.dangdang.check.domain.payment;
 
 import com.dangdang.check.domain.BaseEntity;
+import com.dangdang.check.domain.customer.CustomerEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,18 +11,16 @@ import java.math.BigDecimal;
 
 @Getter
 @Entity
-@Table(name = "payment_methods")
+@Table(name = "payments")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PaymentMethod extends BaseEntity {
+public class PaymentEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    private PaymentMethodType paymentMethodType;
-    private BigDecimal amount;
+    private BigDecimal totalAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_id", nullable = false)
-    private Payment payment;
+    @JoinColumn(name = "customer_id", nullable = false)
+    private CustomerEntity customer;
 }

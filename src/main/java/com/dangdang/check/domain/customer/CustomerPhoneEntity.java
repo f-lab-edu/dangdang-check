@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "customer_phones")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CustomerPhone extends BaseEntity {
+public class CustomerPhoneEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,5 +22,5 @@ public class CustomerPhone extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private CustomerEntity customer;
 }

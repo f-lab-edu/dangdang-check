@@ -1,7 +1,7 @@
 package com.dangdang.check.domain.pet;
 
 import com.dangdang.check.domain.BaseEntity;
-import com.dangdang.check.domain.customer.Customer;
+import com.dangdang.check.domain.customer.CustomerEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "pets")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Pet extends BaseEntity {
+public class PetEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +31,5 @@ public class Pet extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private CustomerEntity customer;
 }
