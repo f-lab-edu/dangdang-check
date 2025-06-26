@@ -38,8 +38,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public EmployeeInfo updatePassword(UpdatePassword command) {
-        EmployeeEntity employee = employeeFindService.findByLoginIdAndPassword(command.getLoginId(), passwordEncoder.encode(command.getCurrentPassword()));
+        EmployeeEntity employee = employeeFindService.findByLoginId(command.getLoginId());
+        validateCurrentPassword(command.getCurrentPassword(), employee.getPassword());
         employeeCommandService.updatePassword(employee, passwordEncoder.encode(command.getNewPassword()));
         return EmployeeEntityFactory.to(employee);
+    }
+
+    private void validateCurrentPassword(String currentPassword, String encodedPassword) {
+        if (!passwordEncoder.matches(currentPassword, encodedPassword)) {
+            throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
+        }
     }
 }
