@@ -13,4 +13,9 @@ public class EmployeeCommandService {
     public EmployeeEntity save(EmployeeEntity employee) {
         return employeeJpaRepository.save(employee);
     }
+
+    public EmployeeEntity updateProfile(EmployeeEntity employee, String name, String nickname) {
+        employee.modifyProfile(name, nickname);
+        return employee;
+    }
 }

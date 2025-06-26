@@ -55,6 +55,23 @@ public class EmployeeEntity extends BaseEntity {
         this.mobilePhone = mobilePhone;
     }
 
+    public void modifyName(String name) {
+        if (StringUtils.isNotBlank(name)) {
+            this.name = name;
+        }
+    }
+
+    public void modifyNickName(String nickname) {
+        if (StringUtils.isNotBlank(nickname)) {
+            this.nickname = nickname;
+        }
+    }
+
+    public void modifyProfile(String name, String nickname) {
+       modifyName(name);
+       modifyNickName(nickname);
+    }
+
     private boolean isNotValidParams(String name, String nickname, String email, String loginId, String password, String mobilePhone) {
         return StringUtils.isBlank(name)
                 || StringUtils.isBlank(nickname)

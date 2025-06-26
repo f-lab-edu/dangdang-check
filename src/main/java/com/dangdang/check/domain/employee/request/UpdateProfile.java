@@ -8,13 +8,13 @@ import lombok.ToString;
 @ToString
 public class UpdateProfile {
 
-    private final Long employeeId;
+    private final String loginId;
     private final String name;
     private final String nickname;
 
     @Builder
-    public UpdateProfile(Long employeeId, String name, String nickname) {
-        this.employeeId = employeeId;
+    public UpdateProfile(String loginId, String name, String nickname) {
+        this.loginId = loginId;
         this.name = name;
         this.nickname = nickname;
     }

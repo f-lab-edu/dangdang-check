@@ -1,6 +1,7 @@
 package com.dangdang.check.domain.employee;
 
 import com.dangdang.check.core.employee.EmployeeCommandService;
+import com.dangdang.check.core.employee.EmployeeFindService;
 import com.dangdang.check.domain.employee.request.RegisterEmployee;
 import com.dangdang.check.domain.employee.request.UpdateProfile;
 import com.dangdang.check.domain.employee.response.EmployeeInfo;
@@ -15,17 +16,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeCommandService employeeCommandService;
     private final PasswordEncoder passwordEncoder;
+    private final EmployeeFindService employeeFindService;
 
     @Override
     @Transactional
     public EmployeeInfo registerEmployee(RegisterEmployee command) {
         String encodedPassword = passwordEncoder.encode(command.getPassword());
-        EmployeeEntity initEmployee = EmployeeEntityFactory.from(command, encodedPassword);
-        return EmployeeEntityFactory.to(employeeCommandService.save(initEmployee));
+        EmployeeEntity employee = EmployeeEntityFactory.from(command, encodedPassword);
+        return EmployeeEntityFactory.to(employeeCommandService.save(employee));
     }
 
     @Override
+    @Transactional
     public EmployeeInfo updateProfile(UpdateProfile command) {
-        return null;
+        EmployeeEntity employee = employeeFindService.findByLoginId(command.getLoginId());
+        employeeCommandService.updateProfile(employee, command.getName(), command.getNickname());
+        return EmployeeEntityFactory.to(employee);
     }
 }
