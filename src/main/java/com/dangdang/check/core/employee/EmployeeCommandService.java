@@ -18,4 +18,9 @@ public class EmployeeCommandService {
         employee.modifyProfile(name, nickname);
         return employee;
     }
+
+    public EmployeeEntity updatePassword(EmployeeEntity employee, String password) {
+        employee.modifyPassword(password);
+        return employee;
+    }
 }

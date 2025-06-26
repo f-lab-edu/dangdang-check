@@ -15,4 +15,9 @@ public class EmployeeFindService {
         return employeeJpaRepository.findByLoginIdAndIsDeletedFalse(loginId)
                 .orElseThrow((EntityNotFoundException::new));
     }
+
+    public EmployeeEntity findByLoginIdAndPassword(String loginId, String password) {
+        return employeeJpaRepository.findByLoginIdAndPasswordAndIsDeletedFalse(loginId, password)
+                .orElseThrow(() -> new EntityNotFoundException("로그인 ID 또는 비밀번호가 잘못되었습니다."));
+    }
 }
