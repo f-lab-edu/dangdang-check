@@ -1,4 +1,4 @@
-package com.dangdang.check.interfaces.authentication;
+package com.dangdang.check.core.authentication;
 
 import com.dangdang.check.domain.verification.EmailSenderService;
 import lombok.RequiredArgsConstructor;
