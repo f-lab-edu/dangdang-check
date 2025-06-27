@@ -4,6 +4,26 @@ spring:
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: duyeong0020@gmail.com
+    password: ENC(8LyJGtUH0CHfZ9oO/exrRZT6oS58Z5nNCeeFjoMNkKQ=)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connection timeout: 5000
+          timeout: 5000
+          write timeout: 5000
+
 
   jpa:
     hibernate:
