@@ -1,6 +1,6 @@
 package com.dangdang.check.domain.verification;
 
-public interface MailVerificationService {
+public interface EmailVerificationService {
 
     boolean sendVerificationCode(String email);
 }

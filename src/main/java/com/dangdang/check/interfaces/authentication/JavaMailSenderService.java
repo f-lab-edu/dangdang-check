@@ -1,6 +1,6 @@
 package com.dangdang.check.interfaces.authentication;
 
-import com.dangdang.check.domain.verification.MailSenderService;
+import com.dangdang.check.domain.verification.EmailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
-public class JavaMailSenderService implements MailSenderService {
+public class JavaMailSenderService implements EmailSenderService {
 
     private final JavaMailSender javaMailSender;
 

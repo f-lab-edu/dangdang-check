@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @RedisHash(value = "emailVerification", timeToLive = 300)
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class MailVerification {
+public class EmailVerification {
 
     @Id
     private String email;
@@ -23,7 +23,7 @@ public class MailVerification {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime lastSentAt = LocalDateTime.now();
 
-    public MailVerification(String email, String code) {
+    public EmailVerification(String email, String code) {
         this.email = email;
         this.code = code;
     }
