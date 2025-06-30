@@ -15,4 +15,8 @@ public class EmployeeFindService {
         return employeeJpaRepository.findByLoginIdAndIsDeletedFalse(loginId)
                 .orElseThrow((EntityNotFoundException::new));
     }
+
+    public boolean existsByEmail(String email) {
+        return employeeJpaRepository.existsByEmail(email);
+    }
 }

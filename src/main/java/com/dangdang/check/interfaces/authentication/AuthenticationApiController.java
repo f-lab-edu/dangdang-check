@@ -1,7 +1,7 @@
 package com.dangdang.check.interfaces.authentication;
 
 import com.dangdang.check.common.response.CommonResponse;
-import com.dangdang.check.domain.verification.EmailVerificationService;
+import com.dangdang.check.domain.verification.AuthenticationApiService;
 import com.dangdang.check.interfaces.authentication.request.SendVerificationCodeRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationApiController {
 
-    private final EmailVerificationService emailVerificationService;
+    private final AuthenticationApiService authenticationApiService;
 
     @PostMapping("/email-verification")
     public CommonResponse<Boolean> sendVerificationCode(@RequestBody @Valid SendVerificationCodeRequest request) {
-        boolean response = emailVerificationService.sendVerificationCode(request.getEmail());
+        boolean response = authenticationApiService.sendVerificationCode(request.getEmail());
         return CommonResponse.success(response);
     }
 }
