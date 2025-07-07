@@ -23,8 +23,6 @@ spring:
           connection timeout: 5000
           timeout: 5000
           write timeout: 5000
-
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -33,3 +31,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+solapi:
+  api-key: ${SOLAPI_API_KEY}
+  api-secret: ${SOLAPI_API_SECRET}
+  base-url: https://api.coolsms.co.kr
+  from-number: ${SOLAPI_FROM_NUMBER}
