@@ -4,5 +4,5 @@ public interface PhoneVerificationService {
 
     String createAndSaveCode(String mobilePhone);
 
-    boolean verifyMobilePhoneCode(String mobilePhone, String code);
+    boolean verifyPhoneCode(String mobilePhone, String code);
 }

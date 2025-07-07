@@ -14,4 +14,13 @@ public class PhoneVerificationCommandService {
         return phoneVerificationRepository.save(phoneVerification);
     }
 
+    public void delete(PhoneVerification phoneVerification) {
+        phoneVerificationRepository.delete(phoneVerification);
+    }
+
+    public void incrementFailCount(PhoneVerification phoneVerification) {
+        phoneVerification.modifyFailCount(phoneVerification.getFailCount() + 1);
+        phoneVerificationRepository.save(phoneVerification);
+    }
+
 }
