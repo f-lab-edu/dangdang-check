@@ -8,4 +8,9 @@ public class VerificationMessageConstants {
             "인증 코드: %s\n\n" +
             "해당 코드는 5분 동안 유효하며, 타인에게 공유하지 마시기 바랍니다.\n\n" +
             "감사합니다.";
+
+    public static final int MAX_FAIL_COUNT = 5;
+
+    public static final int CODE_VALID_SECONDS = 5 * 60;
+
 }
