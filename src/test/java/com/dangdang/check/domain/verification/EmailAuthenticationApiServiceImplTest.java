@@ -16,7 +16,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AuthenticationApiServiceImplTest {
+class EmailAuthenticationApiServiceImplTest {
     @Mock
     private EmployeeFindService employeeFindService;
 
@@ -27,7 +27,7 @@ class AuthenticationApiServiceImplTest {
     private EmailSenderService emailSenderService;
 
     @InjectMocks
-    private AuthenticationApiServiceImpl authenticationApiService;
+    private EmailAuthenticationApiServiceImpl emailAuthenticationApiService;
 
     @Test
     void sendVerificationCode_success() {
@@ -41,7 +41,7 @@ class AuthenticationApiServiceImplTest {
                 .thenReturn(CompletableFuture.completedFuture(true));
 
         // when
-        boolean result = authenticationApiService.sendVerificationCode(email);
+        boolean result = emailAuthenticationApiService.sendVerificationCode(email);
 
         // then
         assertTrue(result);
@@ -60,7 +60,7 @@ class AuthenticationApiServiceImplTest {
 
         // when / then
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            authenticationApiService.sendVerificationCode(email);
+            emailAuthenticationApiService.sendVerificationCode(email);
         });
 
         assertEquals("이미 존재하는 email입니다.", exception.getMessage());

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AuthenticationApiServiceImpl implements AuthenticationApiService {
+public class EmailAuthenticationApiServiceImpl implements EmailAuthenticationApiService {
 
     private final EmployeeFindService employeeFindService;
     private final EmailVerificationService emailVerificationService;
@@ -29,7 +29,7 @@ public class AuthenticationApiServiceImpl implements AuthenticationApiService {
     }
 
     @Override
-    public boolean verifyEmailCode(VerifyEmailCode command) {
+    public boolean verifyCode(VerifyEmailCode command) {
         return emailVerificationService.verifyEmailCode(command.getEmail(), command.getCode());
     }
 

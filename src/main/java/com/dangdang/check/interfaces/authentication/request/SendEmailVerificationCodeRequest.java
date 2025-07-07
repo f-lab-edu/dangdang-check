@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class SendVerificationCodeRequest {
+public class SendEmailVerificationCodeRequest {
 
     @NotBlank(message = "email은 필수값입니다")
     @Email(message = "email 형식에 맞아야 합니다")
