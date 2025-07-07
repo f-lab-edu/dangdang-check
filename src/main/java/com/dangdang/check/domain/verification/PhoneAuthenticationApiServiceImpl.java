@@ -30,7 +30,7 @@ public class PhoneAuthenticationApiServiceImpl implements PhoneAuthenticationApi
 
     @Override
     public boolean verifyCode(VerifyPhoneCode command) {
-        return false;
+        return phoneVerificationService.verifyPhoneCode(command.getMobilePhone(), command.getCode());
     }
 
     private void validateMobilePhoneIsAvailable(String mobilePhone) {
