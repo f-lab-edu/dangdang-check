@@ -10,5 +10,6 @@ public interface EmployeeJpaRepository extends JpaRepository<EmployeeEntity, Lon
 
     Optional<EmployeeEntity> findByLoginIdAndIsDeletedFalse(String loginId);
     boolean existsByEmail(String email);
+    boolean existsByMobilePhone(String mobilePhone);
 
 }
