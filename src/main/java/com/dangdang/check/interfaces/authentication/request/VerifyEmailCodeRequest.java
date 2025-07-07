@@ -16,7 +16,7 @@ public class VerifyEmailCodeRequest {
     private String email;
 
     @NotBlank(message = "code는 필수값입니다")
-    @Pattern(regexp = "^[0-9]{6}$", message = "code는 6자리 숫자여야 합니다")
+    @Pattern(regexp = "^[A-Z0-9]{6}$", message = "code는 영문 대문자와 숫자로 이루어진 6자리여야 합니다")
     private String code;
 
     public VerifyEmailCode toCommand() {
