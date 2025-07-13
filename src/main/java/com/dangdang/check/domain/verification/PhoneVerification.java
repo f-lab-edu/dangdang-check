@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
 import static com.dangdang.check.common.constant.VerificationMessageConstants.CODE_VALID_SECONDS;
 
 @Getter
-@RedisHash(value = "emailVerification", timeToLive = CODE_VALID_SECONDS)
+@RedisHash(value = "phoneVerification", timeToLive = CODE_VALID_SECONDS)
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class EmailVerification {
+public class PhoneVerification {
 
     @Id
-    private String email;
+    private String mobilePhone;
     private String code;
     private int failCount = 0;
 
@@ -27,8 +27,8 @@ public class EmailVerification {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime lastSentAt = LocalDateTime.now();
 
-    public EmailVerification(String email, String code) {
-        this.email = email;
+    public PhoneVerification(String mobilePhone, String code) {
+        this.mobilePhone = mobilePhone;
         this.code = code;
     }
 

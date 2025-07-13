@@ -2,6 +2,7 @@ package com.dangdang.check.domain.verification;
 
 import com.dangdang.check.common.constant.VerificationMessageConstants;
 import com.dangdang.check.core.employee.EmployeeFindService;
+import com.dangdang.check.domain.verification.request.VerifyEmailCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AuthenticationApiServiceImpl implements AuthenticationApiService {
+public class EmailAuthenticationApiServiceImpl implements EmailAuthenticationApiService {
 
     private final EmployeeFindService employeeFindService;
     private final EmailVerificationService emailVerificationService;
@@ -26,6 +27,12 @@ public class AuthenticationApiServiceImpl implements AuthenticationApiService {
                 });
         return true;
     }
+
+    @Override
+    public boolean verifyCode(VerifyEmailCode command) {
+        return emailVerificationService.verifyEmailCode(command.getEmail(), command.getCode());
+    }
+
     private void validateEmailIsAvailable(String email) {
         if (employeeFindService.existsByEmail(email)) {
             throw new RuntimeException("이미 존재하는 email입니다.");

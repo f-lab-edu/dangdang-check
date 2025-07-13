@@ -19,4 +19,8 @@ public class EmployeeFindService {
     public boolean existsByEmail(String email) {
         return employeeJpaRepository.existsByEmail(email);
     }
+
+    public boolean existsByMobilePhone(String mobilePhone) {
+        return employeeJpaRepository.existsByMobilePhone(mobilePhone);
+    }
 }
