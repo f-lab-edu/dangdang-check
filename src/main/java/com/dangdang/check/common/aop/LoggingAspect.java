@@ -30,38 +30,33 @@ public class LoggingAspect {
         int depth = callDepth.get();
         callDepth.set(depth + 1);
 
-        String className = joinPoint.getSignature().getDeclaringType().getSimpleName();
-        String methodName = joinPoint.getSignature().getName();
-        String method = className + "." + methodName + "()";
+        String methodLabel = getMethodLabel(joinPoint);
+        String indentedMethodLabel = formatMethodWithIndent(methodLabel, depth);
+        String args = getArgumentsAsString(joinPoint);
 
-        String args = Arrays.stream(joinPoint.getArgs())
-                .map(arg -> arg == null ? "null" : arg.toString())
-                .collect(Collectors.joining(", "));
-
-        log.info("{}args: [{}]", formatLeft(method, depth), args);
+        log.info("{}args: [{}]", indentedMethodLabel, args);
 
         try {
             Object result = joinPoint.proceed();
-            log.info("{}return: {}", formatLeft(method, depth), result);
+            log.info("{}return: {}", indentedMethodLabel, result);
             return result;
         } catch (Throwable t) {
             if (firstExceptionMethod.get() == null) {
-                firstExceptionMethod.set(method);
+                firstExceptionMethod.set(methodLabel);
             }
 
             String errorMessage = ErrorMessageUtil.formatExceptionMessage(firstExceptionMethod.get(), args, t);
 
             if (depth == 0) {
-                log.error("{}throw: {}", formatLeft(method, depth), t.getMessage(), t);
+                log.error("{}throw: {}", indentedMethodLabel, t.getMessage(), t);
                 slackNotifierService.sendErrorMessage(errorMessage);
             } else {
-                log.info("{}rethrow: {}", formatLeft(method, depth), t.getMessage());
+                log.info("{}rethrow: {}", indentedMethodLabel, t.getMessage());
             }
             throw t;
         } finally {
             if (depth <= 0) {
-                firstExceptionMethod.remove();
-                callDepth.remove();
+                cleanThreadLocals();
             } else {
                 callDepth.set(depth - 1);
             }
@@ -69,12 +64,29 @@ public class LoggingAspect {
 
     }
 
-    private String indent(int level) {
+    private void cleanThreadLocals() {
+        firstExceptionMethod.remove();
+        callDepth.remove();
+    }
+
+    private String getMethodLabel(ProceedingJoinPoint joinPoint) {
+        String className = joinPoint.getSignature().getDeclaringType().getSimpleName();
+        String methodName = joinPoint.getSignature().getName();
+        return className + "." + methodName + "()";
+    }
+
+    private String getArgumentsAsString(ProceedingJoinPoint joinPoint) {
+        return Arrays.stream(joinPoint.getArgs())
+                .map(arg -> arg == null ? "null" : arg.toString())
+                .collect(Collectors.joining(", "));
+    }
+
+    private String getIndent(int level) {
         return "    ".repeat(level);
     }
 
-    private String formatLeft(String classMethod, int depth) {
-        String base = indent(depth) + classMethod;
+    private String formatMethodWithIndent(String classMethod, int depth) {
+        String base = getIndent(depth) + classMethod;
         int pad = Math.max(0, ALIGN_WIDTH - base.length());
         return base + " ".repeat(pad);
     }
