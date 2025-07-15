@@ -4,6 +4,6 @@ import com.dangdang.check.domain.verification.request.VerifyEmailCode;
 
 public interface EmailAuthenticationApiService {
 
-    boolean sendVerificationCode(String email);
+    void sendVerificationCode(String email);
     boolean verifyCode(VerifyEmailCode command);
 }

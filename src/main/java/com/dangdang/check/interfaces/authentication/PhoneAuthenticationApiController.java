@@ -20,9 +20,8 @@ public class PhoneAuthenticationApiController {
     private final PhoneAuthenticationApiService phoneAuthenticationApiService;
 
     @PostMapping
-    public CommonResponse<Boolean> sendPhoneVerificationCode(@RequestBody @Valid SendPhoneVerificationCodeRequest request) {
-        boolean response = phoneAuthenticationApiService.sendVerificationCode(request.getMobilePhone());
-        return CommonResponse.success(response);
+    public void sendPhoneVerificationCode(@RequestBody @Valid SendPhoneVerificationCodeRequest request) {
+        phoneAuthenticationApiService.sendVerificationCode(request.getMobilePhone());
     }
 
     @PostMapping("/confirm")

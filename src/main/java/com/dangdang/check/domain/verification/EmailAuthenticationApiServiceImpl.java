@@ -17,15 +17,10 @@ public class EmailAuthenticationApiServiceImpl implements EmailAuthenticationApi
     private final EmailSenderService emailSenderService;
 
     @Override
-    public boolean sendVerificationCode(String email) {
+    public void sendVerificationCode(String email) {
         validateEmailIsAvailable(email);
         String code = emailVerificationService.createAndSaveCode(email);
-        emailSenderService.send(email, VerificationMessageConstants.SUBJECT, String.format(VerificationMessageConstants.BODY_TEMPLATE, code))
-                .exceptionally(ex -> {
-                    log.error("Failed to send email", ex);
-                    return false;
-                });
-        return true;
+        emailSenderService.send(email, VerificationMessageConstants.SUBJECT, String.format(VerificationMessageConstants.BODY_TEMPLATE, code));
     }
 
     @Override
