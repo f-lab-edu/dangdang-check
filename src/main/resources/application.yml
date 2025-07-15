@@ -36,3 +36,6 @@ solapi:
   api-secret: ${SOLAPI_API_SECRET}
   base-url: https://api.coolsms.co.kr
   from-number: ${SOLAPI_FROM_NUMBER}
+slack:
+  webhook:
+    url: https://hooks.slack.com/services/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
