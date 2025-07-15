@@ -55,6 +55,10 @@ public class EmployeeEntity extends BaseEntity {
         this.mobilePhone = mobilePhone;
     }
 
+    public void addStore(StoreEntity store) {
+        this.store = store;
+    }
+
     public void modifyProfile(String name, String nickname) {
         modifyName(name);
         modifyNickName(nickname);
