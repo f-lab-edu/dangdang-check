@@ -8,10 +8,7 @@ import com.dangdang.check.domain.store.response.StoreInfo;
 import com.dangdang.check.domain.store.response.StoreSummaryInfo;
 import com.dangdang.check.interfaces.store.request.GetStoresByCriteriaRequest;
 import com.dangdang.check.interfaces.store.request.RegisterStoreRequest;
-import com.dangdang.check.interfaces.store.response.ApproveStoreResponse;
-import com.dangdang.check.interfaces.store.response.GetStoreByIdResponse;
-import com.dangdang.check.interfaces.store.response.GetStoresByCriteriaResponse;
-import com.dangdang.check.interfaces.store.response.RegisterStoreResponse;
+import com.dangdang.check.interfaces.store.response.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -48,5 +45,11 @@ public class StoreApiController {
     public CommonResponse<ApproveStoreResponse> approveStore(@PathVariable Long storeId) {
         StoreInfo storeInfo = storeService.approveStore(storeId);
         return CommonResponse.success(new ApproveStoreResponse(storeInfo));
+    }
+
+    @PatchMapping("/api/stores/{storeId}/reject")
+    public CommonResponse<RejectStoreResponse> rejectStore(@PathVariable Long storeId, @RequestBody String rejectedReason) {
+        StoreInfo storeInfo = storeService.rejectStore(storeId, rejectedReason);
+        return CommonResponse.success(new RejectStoreResponse(storeInfo));
     }
 }
