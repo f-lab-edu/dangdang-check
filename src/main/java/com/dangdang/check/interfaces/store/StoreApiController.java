@@ -8,16 +8,14 @@ import com.dangdang.check.domain.store.response.StoreInfo;
 import com.dangdang.check.domain.store.response.StoreSummaryInfo;
 import com.dangdang.check.interfaces.store.request.GetStoresByCriteriaRequest;
 import com.dangdang.check.interfaces.store.request.RegisterStoreRequest;
+import com.dangdang.check.interfaces.store.response.ApproveStoreResponse;
 import com.dangdang.check.interfaces.store.response.GetStoresByCriteriaResponse;
 import com.dangdang.check.interfaces.store.response.RegisterStoreResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,5 +35,11 @@ public class StoreApiController {
         Page<StoreSummaryInfo> storeSummaryPage = storeService.getStoresByCriteria(criteria);
         Page<GetStoresByCriteriaResponse> response = storeSummaryPage.map(GetStoresByCriteriaResponse::new);
         return CommonResponse.success(response);
+    }
+
+    @PatchMapping("/api/stores/{storeId}/approve")
+    public CommonResponse<ApproveStoreResponse> approveStore(@PathVariable Long storeId) {
+        StoreInfo storeInfo = storeService.approveStore(storeId);
+        return CommonResponse.success(new ApproveStoreResponse(storeInfo));
     }
 }
