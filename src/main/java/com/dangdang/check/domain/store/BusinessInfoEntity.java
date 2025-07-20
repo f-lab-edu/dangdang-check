@@ -43,6 +43,10 @@ public class BusinessInfoEntity extends BaseEntity {
         this.address = address;
     }
 
+    public void approve() {
+        this.registrationStatus = RegistrationStatus.APPROVED;
+    }
+
     private boolean isNotValidParams(String businessName, String businessRegistrationNumber, String businessType, String representativeName, Address address) {
         return StringUtils.isBlank(businessName)
                 || StringUtils.isBlank(businessRegistrationNumber)

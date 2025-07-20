@@ -42,6 +42,14 @@ public class StoreEntity extends BaseEntity {
         this.businessInfo = businessInfo;
     }
 
+    public void approve() {
+        if (businessInfo != null) {
+            businessInfo.approve();
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
+
     private boolean isNotValidParams(String name, String email, String mainPhone, Address address, BusinessInfoEntity businessInfo) {
         return StringUtils.isBlank(name)
                 || StringUtils.isBlank(email)
