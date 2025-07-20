@@ -50,6 +50,14 @@ public class StoreEntity extends BaseEntity {
         }
     }
 
+    public void reject(String rejectedReason) {
+        if (businessInfo != null) {
+            businessInfo.reject(rejectedReason);
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
+
     private boolean isNotValidParams(String name, String email, String mainPhone, Address address, BusinessInfoEntity businessInfo) {
         return StringUtils.isBlank(name)
                 || StringUtils.isBlank(email)
