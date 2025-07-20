@@ -49,4 +49,12 @@ public class StoreServiceImpl implements StoreService {
         store.approve();
         return StoreEntityFactory.to(store);
     }
+
+    @Override
+    @Transactional
+    public StoreInfo rejectStore(Long storeId, String rejectedReason) {
+        StoreEntity store = storeFindService.findById(storeId);
+        store.reject(rejectedReason);
+        return StoreEntityFactory.to(store);
+    }
 }

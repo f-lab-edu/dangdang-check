@@ -16,4 +16,6 @@ public interface StoreService {
     Page<StoreSummaryInfo> getStoresByCriteria(GetStoresByCriteria criteria);
 
     StoreInfo approveStore(Long storeId);
+
+    StoreInfo rejectStore(Long storeId, String rejectedReason);
 }
