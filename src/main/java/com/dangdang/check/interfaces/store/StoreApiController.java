@@ -9,6 +9,7 @@ import com.dangdang.check.domain.store.response.StoreSummaryInfo;
 import com.dangdang.check.interfaces.store.request.GetStoresByCriteriaRequest;
 import com.dangdang.check.interfaces.store.request.RegisterStoreRequest;
 import com.dangdang.check.interfaces.store.response.ApproveStoreResponse;
+import com.dangdang.check.interfaces.store.response.GetStoreByIdResponse;
 import com.dangdang.check.interfaces.store.response.GetStoresByCriteriaResponse;
 import com.dangdang.check.interfaces.store.response.RegisterStoreResponse;
 import jakarta.validation.Valid;
@@ -27,6 +28,12 @@ public class StoreApiController {
     public CommonResponse<RegisterStoreResponse> registerStore(@RequestBody @Valid RegisterStoreRequest request) {
         StoreInfo storeInfo = storeService.registerStore(request.toCommand());
         return CommonResponse.success(new RegisterStoreResponse(storeInfo));
+    }
+
+    @GetMapping("/api/stores/{storeId}")
+    public CommonResponse<GetStoreByIdResponse> getStoreById(@PathVariable Long storeId) {
+        StoreInfo storeInfo = storeService.getStoreById(storeId);
+        return CommonResponse.success(new GetStoreByIdResponse(storeInfo));
     }
 
     @GetMapping("/api/stores")

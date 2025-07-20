@@ -32,6 +32,12 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     @Transactional(readOnly = true)
+    public StoreInfo getStoreById(Long storeId) {;
+        return StoreEntityFactory.to(storeFindService.findById(storeId));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Page<StoreSummaryInfo> getStoresByCriteria(GetStoresByCriteria criteria) {
         return storeFindService.findByCriteria(criteria);
     }
