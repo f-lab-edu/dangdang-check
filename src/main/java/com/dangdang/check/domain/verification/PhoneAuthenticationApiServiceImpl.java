@@ -17,15 +17,10 @@ public class PhoneAuthenticationApiServiceImpl implements PhoneAuthenticationApi
     private final PhoneSenderService phoneSenderService;
 
     @Override
-    public boolean sendVerificationCode(String mobilePhone) {
+    public void sendVerificationCode(String mobilePhone) {
         validateMobilePhoneIsAvailable(mobilePhone);
         String code = phoneVerificationService.createAndSaveCode(mobilePhone);
-        phoneSenderService.send(mobilePhone, String.format(VerificationMessageConstants.BODY_TEMPLATE, code))
-                .exceptionally(ex -> {
-                    log.error("Failed to send sms", ex);
-                    return false;
-                });
-        return true;
+        phoneSenderService.send(mobilePhone, String.format(VerificationMessageConstants.BODY_TEMPLATE, code));
     }
 
     @Override

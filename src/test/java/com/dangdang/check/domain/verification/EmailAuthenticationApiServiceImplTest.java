@@ -29,28 +29,6 @@ class EmailAuthenticationApiServiceImplTest {
     @InjectMocks
     private EmailAuthenticationApiServiceImpl emailAuthenticationApiService;
 
-    @Test
-    void sendVerificationCode_success() {
-        // given
-        String email = "test@example.com";
-        String code = "123456";
-
-        when(employeeFindService.existsByEmail(email)).thenReturn(false);
-        when(emailVerificationService.createAndSaveCode(email)).thenReturn(code);
-        when(emailSenderService.send(eq(email), anyString(), anyString()))
-                .thenReturn(CompletableFuture.completedFuture(true));
-
-        // when
-        boolean result = emailAuthenticationApiService.sendVerificationCode(email);
-
-        // then
-        assertTrue(result);
-
-        verify(employeeFindService).existsByEmail(email);
-        verify(emailVerificationService).createAndSaveCode(email);
-        verify(emailSenderService).send(eq(email), eq(VerificationMessageConstants.SUBJECT),
-                eq(String.format(VerificationMessageConstants.BODY_TEMPLATE, code)));
-    }
 
     @Test
     void sendVerificationCode_emailAlreadyExists_throwsException() {

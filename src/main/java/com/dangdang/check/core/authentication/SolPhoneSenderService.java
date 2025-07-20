@@ -25,14 +25,12 @@ public class SolPhoneSenderService implements PhoneSenderService {
         this.solApiProperties = solApiProperties;
     }
 
-    @Async
     @Override
-    public CompletableFuture<Boolean> send(String to, String text) {
+    public void send(String to, String text) {
         try {
             messageService.send(buildMessage(to, text));
-            return CompletableFuture.completedFuture(Boolean.TRUE);
         } catch (Exception e) {
-            return CompletableFuture.failedFuture(e);
+            throw new RuntimeException("Failed to send SMS", e);
         }
     }
 

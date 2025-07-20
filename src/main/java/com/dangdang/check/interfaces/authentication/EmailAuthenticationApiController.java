@@ -20,9 +20,8 @@ public class EmailAuthenticationApiController {
     private final EmailAuthenticationApiService emailauthenticationApiService;
 
     @PostMapping
-    public CommonResponse<Boolean> sendEmailVerificationCode(@RequestBody @Valid SendEmailVerificationCodeRequest request) {
-        boolean response = emailauthenticationApiService.sendVerificationCode(request.getEmail());
-        return CommonResponse.success(response);
+    public void sendEmailVerificationCode(@RequestBody @Valid SendEmailVerificationCodeRequest request) {
+        emailauthenticationApiService.sendVerificationCode(request.getEmail());
     }
 
     @PostMapping("/confirm")
