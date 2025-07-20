@@ -12,4 +12,6 @@ public interface StoreService {
     StoreInfo registerStore(RegisterStore command);
 
     Page<StoreSummaryInfo> getStoresByCriteria(GetStoresByCriteria criteria);
+
+    StoreInfo approveStore(Long storeId);
 }
