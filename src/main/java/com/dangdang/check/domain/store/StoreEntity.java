@@ -29,7 +29,7 @@ public class StoreEntity extends BaseEntity {
     private LocalDateTime deletedAt;
 
     @JoinColumn(name = "business_info_id")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private BusinessInfoEntity businessInfo;
 
     @Builder
