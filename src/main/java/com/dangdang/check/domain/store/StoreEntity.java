@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.security.InvalidParameterException;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -24,6 +25,8 @@ public class StoreEntity extends BaseEntity {
     private String mainPhone;
     @Embedded
     private Address address;
+    private boolean isDeleted = false;
+    private LocalDateTime deletedAt;
 
     @JoinColumn(name = "business_info_id")
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
