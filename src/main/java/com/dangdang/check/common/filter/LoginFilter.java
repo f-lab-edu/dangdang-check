@@ -52,7 +52,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String accessToken = jwtService.createAccessToken(loginId, role);
         String refreshToken = jwtService.createRefreshToken(loginId, role);
 
-        refreshTokenCommandService.save(RefreshTokenEntityFactory.of(loginId, refreshToken));
+        refreshTokenCommandService.save(RefreshTokenEntityFactory.of(refreshToken, loginId));
 
         response.setHeader(AuthConstants.ACCESS_TOKEN_TYPE, accessToken);
         response.addCookie(createCookie(AuthConstants.REFRESH_TOKEN_TYPE, refreshToken));

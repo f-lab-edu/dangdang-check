@@ -15,21 +15,20 @@ import java.security.InvalidParameterException;
 public class RefreshTokenEntity {
 
     @Id
-    private String loginId;
-
     private String refreshToken;
 
-    public RefreshTokenEntity(String loginId, String refreshToken) {
-        if (isNotValidParams(loginId, refreshToken)) {
+    private String loginId;
+
+    public RefreshTokenEntity(String refreshToken, String loginId) {
+        if (isNotValidParams(refreshToken, loginId)) {
             throw new InvalidParameterException();
         }
 
-        this.loginId = loginId;
         this.refreshToken = refreshToken;
+        this.loginId = loginId;
     }
 
-    private boolean isNotValidParams(String loginId, String refreshToken) {
-        return !StringUtils.hasText(loginId)
-                || !StringUtils.hasText(refreshToken);
+    private boolean isNotValidParams(String refreshToken, String loginId) {
+        return !StringUtils.hasText(refreshToken) || !StringUtils.hasText(loginId);
     }
 }

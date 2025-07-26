@@ -1,5 +1,6 @@
 package com.dangdang.check.common.filter;
 
+import com.dangdang.check.common.constant.AuthConstants;
 import com.dangdang.check.core.token.JwtService;
 import com.dangdang.check.domain.employee.response.EmployeeDetails;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -31,6 +32,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String accessToken = authToken.substring(7);
 
         try {
+            jwtService.validateToken(accessToken, AuthConstants.ACCESS_TOKEN_TYPE);
             EmployeeDetails employeeDetails = jwtService.getEmployeeDetails(accessToken);
             SecurityContextHolder
                     .getContext()
