@@ -1,4 +1,4 @@
-package com.dangdang.check.domain.auth;
+package com.dangdang.check.domain.token;
 
 public class RefreshTokenEntityFactory {
 

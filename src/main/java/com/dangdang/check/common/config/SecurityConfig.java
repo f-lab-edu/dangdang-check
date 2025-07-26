@@ -2,8 +2,8 @@ package com.dangdang.check.common.config;
 
 import com.dangdang.check.common.filter.JwtFilter;
 import com.dangdang.check.common.filter.LoginFilter;
-import com.dangdang.check.core.auth.JwtService;
-import com.dangdang.check.core.auth.RefreshTokenCommandService;
+import com.dangdang.check.core.token.JwtService;
+import com.dangdang.check.core.token.RefreshTokenCommandService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

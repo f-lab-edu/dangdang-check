@@ -1,6 +1,6 @@
-package com.dangdang.check.core.auth;
+package com.dangdang.check.core.token;
 
-import com.dangdang.check.domain.auth.RefreshTokenEntity;
+import com.dangdang.check.domain.token.RefreshTokenEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

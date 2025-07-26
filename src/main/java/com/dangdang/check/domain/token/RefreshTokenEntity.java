@@ -1,4 +1,4 @@
-package com.dangdang.check.domain.auth;
+package com.dangdang.check.domain.token;
 
 import com.dangdang.check.common.constant.AuthConstants;
 import lombok.Getter;

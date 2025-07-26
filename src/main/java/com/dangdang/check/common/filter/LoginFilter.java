@@ -1,9 +1,9 @@
 package com.dangdang.check.common.filter;
 
 import com.dangdang.check.common.constant.AuthConstants;
-import com.dangdang.check.core.auth.JwtService;
-import com.dangdang.check.core.auth.RefreshTokenCommandService;
-import com.dangdang.check.domain.auth.RefreshTokenEntityFactory;
+import com.dangdang.check.core.token.JwtService;
+import com.dangdang.check.core.token.RefreshTokenCommandService;
+import com.dangdang.check.domain.token.RefreshTokenEntityFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;

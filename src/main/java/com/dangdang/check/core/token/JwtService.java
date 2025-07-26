@@ -1,4 +1,4 @@
-package com.dangdang.check.core.auth;
+package com.dangdang.check.core.token;
 
 import com.dangdang.check.common.constant.AuthConstants;
 import com.dangdang.check.common.exception.JwtValidationException;

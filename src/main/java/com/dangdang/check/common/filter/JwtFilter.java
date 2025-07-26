@@ -1,7 +1,6 @@
 package com.dangdang.check.common.filter;
 
-import com.dangdang.check.common.constant.AuthConstants;
-import com.dangdang.check.core.auth.JwtService;
+import com.dangdang.check.core.token.JwtService;
 import com.dangdang.check.domain.employee.response.EmployeeDetails;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
