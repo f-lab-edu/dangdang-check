@@ -14,4 +14,8 @@ public class RefreshTokenCommandService {
         return refreshTokenRepository.save(refreshToken);
     }
 
+    public void deleteById(String id) {
+        refreshTokenRepository.deleteById(id);
+    }
+
 }
