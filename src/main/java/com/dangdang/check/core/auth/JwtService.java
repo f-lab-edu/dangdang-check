@@ -41,6 +41,6 @@ public class JwtService {
     }
 
     private boolean isInvalidAccessToken(String token) {
-        return AuthConstants.ACCESS_TOKEN_TYPE.equals(jwtUtil.getCategory(token));
+        return !AuthConstants.ACCESS_TOKEN_TYPE.equals(jwtUtil.getCategory(token));
     }
 }

@@ -1,10 +1,9 @@
 package com.dangdang.check.domain.auth;
 
 import com.dangdang.check.common.constant.AuthConstants;
-import jakarta.persistence.Id;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.util.StringUtils;
 
@@ -13,7 +12,7 @@ import java.security.InvalidParameterException;
 @Getter
 @NoArgsConstructor
 @RedisHash(value = "refreshToken", timeToLive = AuthConstants.REFRESH_TOKEN_TTL_MS)
-public class RefreshTokenEntity{
+public class RefreshTokenEntity {
 
     @Id
     private String loginId;
