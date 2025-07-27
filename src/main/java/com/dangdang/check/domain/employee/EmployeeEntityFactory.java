@@ -1,6 +1,7 @@
 package com.dangdang.check.domain.employee;
 
 import com.dangdang.check.domain.employee.request.RegisterEmployee;
+import com.dangdang.check.domain.employee.response.EmployeeDetails;
 import com.dangdang.check.domain.employee.response.EmployeeInfo;
 
 public class EmployeeEntityFactory {
@@ -16,7 +17,7 @@ public class EmployeeEntityFactory {
                 .build();
     }
 
-    public static EmployeeInfo to(EmployeeEntity employeeEntity) {
+    public static EmployeeInfo toInfo(EmployeeEntity employeeEntity) {
         return EmployeeInfo.builder()
                 .id(employeeEntity.getId())
                 .name(employeeEntity.getName())
@@ -25,5 +26,13 @@ public class EmployeeEntityFactory {
                 .loginId(employeeEntity.getLoginId())
                 .role(employeeEntity.getRole())
                 .build();
+    }
+
+    public static EmployeeDetails toDetails(EmployeeEntity employeeEntity) {
+        return new EmployeeDetails(
+                employeeEntity.getLoginId(),
+                employeeEntity.getPassword(),
+                employeeEntity.getRole()
+        );
     }
 }
