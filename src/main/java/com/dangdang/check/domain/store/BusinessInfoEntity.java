@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.security.InvalidParameterException;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -29,6 +30,8 @@ public class BusinessInfoEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RegistrationStatus registrationStatus = RegistrationStatus.PENDING;
     private String rejectedReason;
+    private boolean isDeleted = false;
+    private LocalDateTime deletedAt;
 
     @Builder
     public BusinessInfoEntity(String businessName, String businessRegistrationNumber, String businessType, String representativeName, Address address) {
