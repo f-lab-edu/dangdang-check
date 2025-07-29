@@ -28,6 +28,7 @@ public class ReissueApiController {
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge((int) AuthConstants.REFRESH_TOKEN_TTL_MS);
         cookie.setHttpOnly(true);
+        cookie.setSecure(true);
         return cookie;
     }
 }
