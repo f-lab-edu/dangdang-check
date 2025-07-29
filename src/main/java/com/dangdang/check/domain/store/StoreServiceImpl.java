@@ -27,6 +27,11 @@ public class StoreServiceImpl implements StoreService {
     @Transactional
     public StoreInfo registerStore(RegisterStore command) {
         EmployeeEntity employee = employeeFindService.findByLoginId(command.getLoginId());
+
+        if (employee.hasStore()) {
+            throw new RuntimeException("이미 매장을 등록한 직원입니다.");
+        }
+
         BusinessInfoEntity businessInfo = businessInfoCommandService.save(BusinessInfoEntityFactory.from(command));
         StoreEntity store = storeCommandService.save(StoreEntityFactory.from(command, businessInfo));
         employee.addStore(store);
