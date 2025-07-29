@@ -28,8 +28,8 @@ public class StoreEntity extends BaseEntity {
     private boolean isDeleted = false;
     private LocalDateTime deletedAt;
 
-    @JoinColumn(name = "business_info_id")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "business_info_id", nullable = false)
     private BusinessInfoEntity businessInfo;
 
     @Builder

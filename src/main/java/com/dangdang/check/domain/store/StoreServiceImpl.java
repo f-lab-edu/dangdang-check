@@ -1,6 +1,7 @@
 package com.dangdang.check.domain.store;
 
 import com.dangdang.check.core.employee.EmployeeFindService;
+import com.dangdang.check.core.store.BusinessInfoCommandService;
 import com.dangdang.check.core.store.StoreCommandService;
 import com.dangdang.check.core.store.StoreFindService;
 import com.dangdang.check.domain.employee.EmployeeEntity;
@@ -20,12 +21,19 @@ public class StoreServiceImpl implements StoreService {
     private final StoreFindService storeFindService;
     private final EmployeeFindService employeeFindService;
     private final StoreCommandService storeCommandService;
+    private final BusinessInfoCommandService businessInfoCommandService;
 
     @Override
     @Transactional
     public StoreInfo registerStore(RegisterStore command) {
         EmployeeEntity employee = employeeFindService.findByLoginId(command.getLoginId());
-        StoreEntity store = storeCommandService.save(StoreEntityFactory.from(command, BusinessInfoEntityFactory.from(command)));
+
+        if (employee.hasStore()) {
+            throw new RuntimeException("이미 매장을 등록한 직원입니다.");
+        }
+
+        BusinessInfoEntity businessInfo = businessInfoCommandService.save(BusinessInfoEntityFactory.from(command));
+        StoreEntity store = storeCommandService.save(StoreEntityFactory.from(command, businessInfo));
         employee.addStore(store);
         return StoreEntityFactory.to(store);
     }

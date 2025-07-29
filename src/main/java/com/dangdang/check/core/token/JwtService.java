@@ -16,14 +16,14 @@ public class JwtService {
     private final JwtUtil jwtUtil;
 
     public void validateToken(String token, String category) {
+        if (!category.equals(jwtUtil.getCategory(token))) {
+            throw new JwtValidationException("invalid token");
+        }
+
         try {
             jwtUtil.isExpired(token);
         } catch (ExpiredJwtException e) {
             throw new JwtValidationException("token expired", e);
-        }
-
-        if (!category.equals(jwtUtil.getCategory(token))) {
-            throw new JwtValidationException("invalid token");
         }
     }
 
@@ -32,6 +32,14 @@ public class JwtService {
         String loginId = jwtUtil.getLoginId(token);
         String role = jwtUtil.getRole(token);
         return new EmployeeDetails(loginId, null, Role.valueOf(role));
+    }
+
+    public String getLoginId(String token) {
+        return jwtUtil.getLoginId(token);
+    }
+
+    public String getRole(String token) {
+        return jwtUtil.getRole(token);
     }
 
 
