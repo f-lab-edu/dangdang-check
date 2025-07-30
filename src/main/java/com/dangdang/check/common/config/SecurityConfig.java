@@ -57,7 +57,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .requestMatchers("/", "/login")
                         .permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/employees").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/logout").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/logout", "/api/customers", "/api/store-requests").authenticated()
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

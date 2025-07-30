@@ -2,6 +2,7 @@ package com.dangdang.check.domain.customer.request;
 
 import com.dangdang.check.domain.customer.PhoneType;
 import com.dangdang.check.domain.pet.Gender;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public class RegisterCustomerWithPets {
     private final String specialNotes;
     private final List<RegisterPet> pets;
 
+    @Builder
     public RegisterCustomerWithPets(String loginId, String customerName, String phoneNumber, String phoneLabel, PhoneType phoneType, String specialNotes, List<RegisterPet> pets) {
         this.loginId = loginId;
         this.customerName = customerName;
@@ -40,6 +42,7 @@ public class RegisterCustomerWithPets {
         private final String breedName;
         private final String species;
 
+        @Builder
         public RegisterPet(String name, Gender gender, LocalDate birthday, Boolean neutered, Boolean vaccinated, String specialNotes, Double weight, String breedName, String species) {
             this.name = name;
             this.gender = gender;
