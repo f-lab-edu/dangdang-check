@@ -1,6 +1,7 @@
 package com.dangdang.check.domain.store;
 
 import com.dangdang.check.domain.BaseEntity;
+import com.dangdang.check.domain.customer.CustomerEntity;
 import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -32,6 +35,9 @@ public class StoreEntity extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private BusinessInfoEntity businessInfo;
 
+    @OneToMany(mappedBy = "store")
+    private List<CustomerEntity> customers = new ArrayList<>();
+
     @Builder
     public StoreEntity(String name, String email, String mainPhone, Address address, BusinessInfoEntity businessInfo) {
         if (isNotValidParams(name, email, mainPhone, address, businessInfo)) {
@@ -43,6 +49,11 @@ public class StoreEntity extends BaseEntity {
         this.mainPhone = mainPhone;
         this.address = address;
         this.businessInfo = businessInfo;
+    }
+
+    public void addCustomer(CustomerEntity customer) {
+        customers.add(customer);
+        customer.modifyStore(this);
     }
 
     public void approve() {
