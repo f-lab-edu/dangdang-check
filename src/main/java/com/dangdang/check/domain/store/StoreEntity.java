@@ -1,6 +1,7 @@
 package com.dangdang.check.domain.store;
 
 import com.dangdang.check.domain.BaseEntity;
+import com.dangdang.check.domain.customer.CustomerEntity;
 import io.micrometer.common.util.StringUtils;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -28,9 +31,12 @@ public class StoreEntity extends BaseEntity {
     private boolean isDeleted = false;
     private LocalDateTime deletedAt;
 
-    @JoinColumn(name = "business_info_id")
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "business_info_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     private BusinessInfoEntity businessInfo;
+
+    @OneToMany(mappedBy = "store")
+    private List<CustomerEntity> customers = new ArrayList<>();
 
     @Builder
     public StoreEntity(String name, String email, String mainPhone, Address address, BusinessInfoEntity businessInfo) {
@@ -43,6 +49,21 @@ public class StoreEntity extends BaseEntity {
         this.mainPhone = mainPhone;
         this.address = address;
         this.businessInfo = businessInfo;
+    }
+
+    public void assertAvailable() {
+        if (this.isDeleted()) {
+            throw new IllegalStateException("삭제되었거나 존재하지 않는 가게입니다.");
+        }
+
+        if (businessInfo == null || businessInfo.isDeleted() || !businessInfo.getRegistrationStatus().equals(RegistrationStatus.APPROVED)) {
+            throw new IllegalStateException("삭제되었거나 존재하지 않는 비즈니스 정보입니다.");
+        }
+    }
+
+    public void addCustomer(CustomerEntity customer) {
+        customers.add(customer);
+        customer.modifyStore(this);
     }
 
     public void approve() {

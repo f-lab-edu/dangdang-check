@@ -3,8 +3,13 @@ package com.dangdang.check.domain.customer;
 import com.dangdang.check.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
+
+import java.security.InvalidParameterException;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -20,7 +25,31 @@ public class CustomerPhoneEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PhoneType phoneType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private CustomerEntity customer;
+    private boolean isDeleted = false;
+    private LocalDateTime deletedAt;
+
+
+    @Builder
+    public CustomerPhoneEntity(String label, String phoneNumber, PhoneType phoneType) {
+        if(isNotValidParams(label, phoneNumber, phoneType)){
+            throw new InvalidParameterException();
+        }
+
+        this.label = label;
+        this.phoneNumber = phoneNumber;
+        this.phoneType = phoneType;
+    }
+
+    public void modifyCustomer(CustomerEntity customer) {
+        this.customer = customer;
+    }
+
+    private boolean isNotValidParams(String label, String phoneNumber, PhoneType phoneType) {
+        return !StringUtils.hasText(label) ||
+                !StringUtils.hasText(phoneNumber) ||
+                phoneType == null;
+    }
 }

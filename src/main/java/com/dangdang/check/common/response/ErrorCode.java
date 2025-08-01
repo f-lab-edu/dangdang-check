@@ -11,7 +11,7 @@ public enum ErrorCode {
     COMMON_ENTITY_NOT_FOUND("존재하지 않는 엔티티입니다."),
     COMMON_ILLEGAL_STATUS("잘못된 상태값입니다."),
     COMMON_ACCESS_DENIED("요청한 작업을 수행할 권한이 없습니다."),
-    COMMON_DUPLICATE_RESOURCE("이미 존재하는 값입니다.");
+    COMMON_DATA_INTEGRITY_VIOLATION("잘못된 데이터로 인해 저장할 수 없습니다. 필수값 누락 또는 무결성 제약 위반입니다.");
 
     private final String errorMessage;
 }
