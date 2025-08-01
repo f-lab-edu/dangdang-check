@@ -51,6 +51,16 @@ public class StoreEntity extends BaseEntity {
         this.businessInfo = businessInfo;
     }
 
+    public void assertAvailable() {
+        if (this.isDeleted()) {
+            throw new IllegalStateException("삭제되었거나 존재하지 않는 가게입니다.");
+        }
+
+        if (businessInfo == null || businessInfo.isDeleted() || !businessInfo.getRegistrationStatus().equals(RegistrationStatus.APPROVED)) {
+            throw new IllegalStateException("삭제되었거나 존재하지 않는 비즈니스 정보입니다.");
+        }
+    }
+
     public void addCustomer(CustomerEntity customer) {
         customers.add(customer);
         customer.modifyStore(this);
