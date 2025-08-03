@@ -59,6 +59,10 @@ public class EmployeeEntity extends BaseEntity {
         this.store = store;
     }
 
+    public boolean hasStore() {
+        return this.store != null;
+    }
+
     public void modifyProfile(String name, String nickname) {
         modifyName(name);
         modifyNickName(nickname);

@@ -31,8 +31,8 @@ public class StoreEntity extends BaseEntity {
     private boolean isDeleted = false;
     private LocalDateTime deletedAt;
 
-    @JoinColumn(name = "business_info_id", nullable = false)
     @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "business_info_id", nullable = false)
     private BusinessInfoEntity businessInfo;
 
     @OneToMany(mappedBy = "store")

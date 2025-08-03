@@ -54,11 +54,12 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/", "/login")
+                        .requestMatchers("/", "/login", "/api/reissue")
                         .permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/employees").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/api/stores/{storeId}/approve").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/logout", "/api/customers", "/api/store-requests", "/api/grooming-reservations").authenticated()
+
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
