@@ -37,10 +37,10 @@ public class CommonControllerAdvice {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public CommonResponse<?> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         if (ex.getMessage() == null) {
-            return CommonResponse.fail(ErrorCode.COMMON_DUPLICATE_RESOURCE);
+            return CommonResponse.fail(ErrorCode.COMMON_DATA_INTEGRITY_VIOLATION);
         }
         log.error("DataIntegrityViolationException: {}", ex.getMessage());
-        return CommonResponse.fail("중복된 값이 존재합니다.", ErrorCode.COMMON_DUPLICATE_RESOURCE.name());
+        return CommonResponse.fail("무결성 제약조건 오류", ErrorCode.COMMON_DATA_INTEGRITY_VIOLATION.name());
     }
 
     /**

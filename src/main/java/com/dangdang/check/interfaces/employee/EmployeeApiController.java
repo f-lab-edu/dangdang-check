@@ -1,6 +1,7 @@
 package com.dangdang.check.interfaces.employee;
 
 
+import com.dangdang.check.common.argumentresolver.Login;
 import com.dangdang.check.common.response.CommonResponse;
 import com.dangdang.check.domain.employee.request.UpdatePassword;
 import com.dangdang.check.domain.employee.request.UpdateProfile;
@@ -33,16 +34,18 @@ public class EmployeeApiController {
     }
 
     @PatchMapping("/me/profile")
-    public CommonResponse<UpdateProfileResponse> updateProfile(@RequestBody @Valid UpdateProfileRequest request) {
-        UpdateProfile command = request.toCommand();
+    public CommonResponse<UpdateProfileResponse> updateProfile(@RequestBody @Valid UpdateProfileRequest request,
+                                                               @Login String loginId) {
+        UpdateProfile command = request.toCommand(loginId);
         EmployeeInfo employeeInfo = employeeService.updateProfile(command);
         UpdateProfileResponse response = new UpdateProfileResponse(employeeInfo);
         return CommonResponse.success(response);
     }
 
     @PatchMapping("/me/password")
-    public CommonResponse<UpdatePasswordResponse> updatePassword(@RequestBody @Valid UpdatePasswordRequest request) {
-        UpdatePassword command = request.toCommand();
+    public CommonResponse<UpdatePasswordResponse> updatePassword(@RequestBody @Valid UpdatePasswordRequest request,
+                                                                 @Login String loginId) {
+        UpdatePassword command = request.toCommand(loginId);
         EmployeeInfo employeeInfo = employeeService.updatePassword(command);
         UpdatePasswordResponse response = new UpdatePasswordResponse(employeeInfo);
         return CommonResponse.success(response);

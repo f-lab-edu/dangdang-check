@@ -1,5 +1,6 @@
 package com.dangdang.check.common.config;
 
+import com.dangdang.check.common.argumentresolver.LoginEmployeeArgumentResolver;
 import com.dangdang.check.common.filter.JwtFilter;
 import com.dangdang.check.common.filter.LoginFilter;
 import com.dangdang.check.core.token.JwtService;
@@ -20,7 +21,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 @Slf4j
 @Configuration
@@ -53,12 +57,19 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .requestMatchers("/", "/login", "/api/reissue")
                         .permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/employees").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/logout", "api/store-requests").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/api/stores/{storeId}/approve").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/logout", "/api/customers", "/api/store-requests", "/api/grooming-reservations").authenticated()
+
                 )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterAt(new LoginFilter(refreshTokenCommandService, jwtService, authenticationManager(authenticationConfiguration), objectMapper), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtFilter(jwtService), LoginFilter.class)
                 .build();
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new LoginEmployeeArgumentResolver());
     }
 }
