@@ -33,7 +33,7 @@
 - Beckend: 1명(최두영)
 
 ### 개발 기간
-2025. 03 ~
+2025.04 ~ 2025.07
 
 ## 🛠기술 스택
 ![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
