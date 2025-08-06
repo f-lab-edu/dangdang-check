@@ -12,19 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class StoreFindService {
 
     private final StoreRepositoryCustom storeRepositoryCustom;
     private final StoreJpaRepository storeJpaRepository;
 
-    @Transactional(readOnly = true)
     public StoreEntity findById(Long id) {
         return storeJpaRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
 
-    @Transactional(readOnly = true)
     public Page<StoreSummaryInfo> findByCriteria(GetStoresByCriteria criteria) {
         return storeRepositoryCustom.findByCriteria(criteria);
     }

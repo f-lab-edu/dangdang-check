@@ -2,6 +2,7 @@ package com.dangdang.check.domain.grooming;
 
 import com.dangdang.check.core.employee.EmployeeFindService;
 import com.dangdang.check.core.grooming.GroomingReservationCommandService;
+import com.dangdang.check.core.grooming.GroomingReservationFindService;
 import com.dangdang.check.core.grooming.GroomingReservationPetCommandService;
 import com.dangdang.check.core.pet.PetFindService;
 import com.dangdang.check.domain.customer.CustomerEntity;
@@ -22,6 +23,7 @@ import java.util.List;
 public class GroomingReservationApiServiceImpl implements GroomingReservationApiService {
 
     private final GroomingReservationCommandService groomingReservationCommandService;
+    private final GroomingReservationFindService groomingReservationFindService;
     private final GroomingReservationPetCommandService groomingReservationPetCommandService;
     private final EmployeeFindService employeeFindService;
     private final PetFindService petFindService;
@@ -58,7 +60,7 @@ public class GroomingReservationApiServiceImpl implements GroomingReservationApi
             throw new IllegalStateException("고객의 매장과 직원의 매장이 일치하지 않습니다.");
         }
 
-        if (groomingReservationCommandService.existsOverlappingReservation(command.getPetIds(), command.getStartAt(), command.getEndAt())) {
+        if (groomingReservationFindService.existsOverlappingReservation(command.getPetIds(), command.getStartAt(), command.getEndAt())) {
             throw new IllegalStateException("해당 시간대에 이미 예약이 존재합니다.");
         }
 
