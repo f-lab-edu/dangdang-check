@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,11 +36,13 @@ public class GroomingReservationApiServiceImpl implements GroomingReservationApi
         CustomerEntity customer = pets.getFirst().getCustomer();
         validateRegisterGroomingReservation(command, customer, employeeFindService.findByLoginId(command.getEmployeeLoginId()).getStore());
         GroomingReservationEntity groomingReservation = groomingReservationCommandService.save(GroomingReservationEntityFactory.from(command, customer));
+        List<GroomingReservationPetEntity> groomingReservationPets = new ArrayList<>();
         for (PetEntity pet : pets) {
             GroomingReservationPetEntity groomingReservationPet = GroomingReservationPetEntityFactory.from(groomingReservation, pet);
             groomingReservation.addGroomingReservationPet(groomingReservationPet);
-            groomingReservationPetCommandService.save(groomingReservationPet);
+            groomingReservationPets.add(groomingReservationPet);
         }
+        groomingReservationPetCommandService.saveAll(groomingReservationPets);
         return new GroomingReservationInfo(groomingReservation);
     }
 
