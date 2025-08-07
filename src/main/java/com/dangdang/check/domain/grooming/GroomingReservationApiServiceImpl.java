@@ -33,7 +33,9 @@ public class GroomingReservationApiServiceImpl implements GroomingReservationApi
     @Transactional
     public GroomingReservationInfo registerGroomingReservation(RegisterGroomingReservation command) {
         List<PetEntity> pets = petFindService.findAllById(new HashSet<>(command.getPetIds()));
-        CustomerEntity customer = pets.getFirst().getCustomer();
+        CustomerEntity customer = pets.stream()
+                .map(PetEntity::getCustomer)
+                .findFirst().orElse(null);
         validateRegisterGroomingReservation(command, customer, employeeFindService.findByLoginId(command.getEmployeeLoginId()).getStore());
         GroomingReservationEntity groomingReservation = groomingReservationCommandService.save(GroomingReservationEntityFactory.from(command, customer));
         saveReservationPets(groomingReservation, pets);
