@@ -5,7 +5,7 @@ import com.dangdang.check.domain.employee.request.UpdatePassword;
 import com.dangdang.check.domain.employee.request.UpdateProfile;
 import com.dangdang.check.domain.employee.response.EmployeeInfo;
 
-public interface EmployeeService {
+public interface EmployeeApiService {
 
     EmployeeInfo registerEmployee(RegisterEmployee command);
 

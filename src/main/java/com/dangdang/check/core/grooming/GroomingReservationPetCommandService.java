@@ -5,14 +5,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class GroomingReservationPetCommandService {
 
     private final GroomingReservationPetJpaRepository groomingReservationPetJpaRepository;
 
-    @Transactional
-    public void save(GroomingReservationPetEntity groomingReservationPetEntity) {
-        groomingReservationPetJpaRepository.save(groomingReservationPetEntity);
+    public void saveAll(List<GroomingReservationPetEntity> groomingReservationPetEntities) {
+        groomingReservationPetJpaRepository.saveAll(groomingReservationPetEntities);
     }
 }

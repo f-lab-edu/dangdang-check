@@ -7,7 +7,7 @@ import com.dangdang.check.domain.store.response.StoreSummaryInfo;
 import org.springframework.data.domain.Page;
 
 
-public interface StoreService {
+public interface StoreApiService {
 
     StoreInfo registerStore(RegisterStore command);
 

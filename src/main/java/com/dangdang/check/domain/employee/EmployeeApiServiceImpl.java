@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class EmployeeServiceImpl implements UserDetailsService, EmployeeService {
+public class EmployeeApiServiceImpl implements UserDetailsService, EmployeeApiService {
     
     private final EmployeeFindService employeeFindService;
     private final EmployeeCommandService employeeCommandService;

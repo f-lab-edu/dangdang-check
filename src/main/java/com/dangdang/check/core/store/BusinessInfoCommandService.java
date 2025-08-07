@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BusinessInfoCommandService {
 
     private final BusinessInfoJpaRepository businessInfoJpaRepository;
 
-    @Transactional
     public BusinessInfoEntity save(BusinessInfoEntity businessInfoEntity) {
         return businessInfoJpaRepository.save(businessInfoEntity);
     }

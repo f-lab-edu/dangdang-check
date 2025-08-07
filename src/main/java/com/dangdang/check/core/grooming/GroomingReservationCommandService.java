@@ -5,22 +5,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class GroomingReservationCommandService {
 
     private final GroomingReservationJpaRepository groomingReservationJpaRepository;
 
-    @Transactional
     public GroomingReservationEntity save(GroomingReservationEntity groomingReservation) {
         return groomingReservationJpaRepository.save(groomingReservation);
-    }
-
-    @Transactional(readOnly = true)
-    public boolean existsOverlappingReservation(List<Long> petIds, LocalDateTime startAt, LocalDateTime endAt) {
-        return groomingReservationJpaRepository.existsOverlappingReservation(petIds, startAt, endAt);
     }
 }
