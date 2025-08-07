@@ -36,6 +36,11 @@ public class GroomingReservationApiServiceImpl implements GroomingReservationApi
         CustomerEntity customer = pets.getFirst().getCustomer();
         validateRegisterGroomingReservation(command, customer, employeeFindService.findByLoginId(command.getEmployeeLoginId()).getStore());
         GroomingReservationEntity groomingReservation = groomingReservationCommandService.save(GroomingReservationEntityFactory.from(command, customer));
+        saveReservationPets(groomingReservation, pets);
+        return new GroomingReservationInfo(groomingReservation);
+    }
+
+    private void saveReservationPets(GroomingReservationEntity groomingReservation, List<PetEntity> pets) {
         List<GroomingReservationPetEntity> groomingReservationPets = new ArrayList<>();
         for (PetEntity pet : pets) {
             GroomingReservationPetEntity groomingReservationPet = GroomingReservationPetEntityFactory.from(groomingReservation, pet);
@@ -43,7 +48,6 @@ public class GroomingReservationApiServiceImpl implements GroomingReservationApi
             groomingReservationPets.add(groomingReservationPet);
         }
         groomingReservationPetCommandService.saveAll(groomingReservationPets);
-        return new GroomingReservationInfo(groomingReservation);
     }
 
     private void validateRegisterGroomingReservation(RegisterGroomingReservation command, CustomerEntity customer, StoreEntity store) {
