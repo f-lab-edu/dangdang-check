@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class StoreServiceImpl implements StoreService {
+public class StoreApiServiceImpl implements StoreApiService {
 
     private final StoreFindService storeFindService;
     private final EmployeeFindService employeeFindService;
